@@ -1,3 +1,3 @@
 This repo contains the Commodore64 version Zaxxon cartridge disassembly. KickAss format.
 
-The .crt has two banks and three files. The three assembly files are first built with Kick Assembler into binfiles. A bat file then merges these three into one 20KB binfile. Then VICE, cartconv.exe, converts that binfile into a zaxxon type crt file. This can then be launched with; either VICE emulator, or c64debugger. 
+The .crt has three files in two banks. The three assembly files are first built with Kick Assembler into binfiles. A bat file then merges these three into one 20KB binfile. Then VICE's cartconv.exe converts that binfile into a zaxxon type .crt file. This can then be launched within by; either VICE emulator, or c64debugger. 
