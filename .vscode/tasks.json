@@ -1,0 +1,88 @@
+{
+    "version": "2.0.0",
+    "command": "cmd",
+    "type": "shell",
+    "echoCommand": true,
+    "args": [
+        "/C"
+    ],
+    "tasks": [
+        {
+            "label": "Assemble bin01",
+            "type": "shell",
+            "windows": {
+                "command": "java -cp C:\\C64\\tools\\kickassembler\\KickAss.jar kickass.KickAssembler zaxxon01.asm -o bin\\zaxxon01.bin -debugdump -symbolfile -bytedump -binfile"
+            }
+        },
+        {
+            "label": "Assemble bin02",
+            "type": "shell",
+            "windows": {
+                "command": "java -cp C:\\C64\\tools\\kickassembler\\KickAss.jar kickass.KickAssembler zaxxon02.asm -o bin\\zaxxon02.bin -debugdump -symbolfile -bytedump -binfile"
+            },
+            "dependsOn": [
+                "Assemble bin01"
+            ]
+        },
+        {
+            "label": "Assemble all",
+            "type": "shell",
+            "windows": {
+                "command": "java -cp C:\\C64\\tools\\kickassembler\\KickAss.jar kickass.KickAssembler zaxxon03.asm -o bin\\zaxxon03.bin -debugdump -symbolfile -bytedump -binfile"
+            },
+            "dependsOn": [
+                "Assemble bin02"
+            ]
+        },
+        {
+            "label": "Merge binfiles",
+            "type": "shell",
+            "windows": {
+                "command": "\"C: copy /b z1.bin + /b z2.bin + /b z3.bin = zaxxon.bin"
+            },
+            "dependsOn": [
+                "Assemble all"
+            ]
+        },
+        {
+            "label": "create zaxxonCRT from merged binfiles",
+            "type": "shell",
+            "windows": {
+                "command": "\"C:\\C64\\tools\\GTK3VICE-3.7-win64\\bin\\cartconv.exe\" -t zaxxon -v -i ${fileDirname}\\bin\\zaxxon.bin -o ${fileDirname}\\bin\\zaxxon.crt"
+            },
+            "dependsOn": [
+                "Merge binfiles"
+            ]
+        },
+        {
+            "label": "C64debugger Build & Launch",
+            "type": "shell",
+            "windows": {
+                "command": "\"C:\\Users\\Mike\\Desktop\\C64Debug\\C64Debugger-v0.64.58.6\\C64Debugger.exe\" -cartcrt ${fileDirname}\\bin\\zaxxon.crt -debuginfo ${fileDirname}\\bin\\zaxxon.dbg -jmp $fce2 -layout 11"
+            },
+            "dependsOn": [
+                "create zaxxonCRT from merged binfiles"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "VICE Build & Launch",
+            "type": "shell",
+            "windows": {
+                "command": "\"C:\\C64\\tools\\GTK3VICE-3.7-win64\\bin\\x64sc.exe\" -cartcrt ${fileDirname}\\bin\\zaxxon.crt"
+            },
+            "dependsOn": [
+                "create zaxxonCRT from merged binfiles"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        }
+    ]
+}
