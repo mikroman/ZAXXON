@@ -1,12 +1,17 @@
 * = $8000
-
-	.byte $0D,$80,$29,$80,$C3,$C2,$CD,$38
-	.byte $30
+	.word coldstart
+	.word warmstart
+//	.byte $0D,$80
+//	.byte $29,$80
+	.byte $C3,$C2,$CD,$38,$30
 
 L_JMP_8009_800A:
 
 	sei
 	jmp L_JMP_8009_800A
+
+coldstart:
+
 	sei
 	lda #$00
 	sta $D016                         // Control Register 2
@@ -22,6 +27,9 @@ L_BRS_8020_8024:
 	dex
 	bpl L_BRS_8020_8024
 	jsr L_JSR_81BA_8026
+
+warmstart:
+
 	sei
 	cld
 	lda #$00
