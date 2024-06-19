@@ -58,7 +58,7 @@
             "label": "C64debugger Build & Launch",
             "type": "shell",
             "windows": {
-                "command": "\"C:\\Users\\Mike\\Desktop\\C64Debug\\C64Debugger-v0.64.58.6\\C64Debugger.exe\" -cartcrt ${fileDirname}\\bin\\zaxxon.crt -debuginfo ${fileDirname}\\bin\\zaxxon.dbg -jmp $fce2 -layout 11"
+                "command": "\"C:\\Users\\Mike\\Desktop\\C64Debug\\C64Debugger-v0.64.58.6\\C64Debugger.exe\" -cartcrt ${fileDirname}\\bin\\zaxxon.crt -debuginfo ${fileDirname}\\bin\\zaxxon01.dbg -jmp $fce2 -layout 11"
             },
             "dependsOn": [
                 "create zaxxonCRT from merged binfiles"
