@@ -1,3 +1,5 @@
+#import "8000mirror.asm"
+
 * = $8000
 	.word coldstart
 	.word warmstart
@@ -5,7 +7,7 @@
 //	.byte $29,$80
 	.byte $C3,$C2,$CD,$38,$30
 
-L_JMP_8009_800A:
+L_JMP_8009_800A:	// BRK jumps here
 
 	sei
 	jmp L_JMP_8009_800A
@@ -2033,11 +2035,11 @@ L_BRS_8C3B_8C34:
 	lda #$04
 	sta $E7
 	lda #$09
-	sta $0316
+	sta $0316			// BRK vector
 	lda #$80
 	sta $0317
 	lda $8002
-	sta $0318
+	sta $0318			// NMI vector
 	lda $8003
 	sta $0319
 	ldx #$0C

@@ -15,30 +15,20 @@
             }
         },
         {
-            "label": "Assemble bin02",
-            "type": "shell",
-            "windows": {
-                "command": "java -cp C:\\C64\\tools\\kickassembler\\KickAss.jar kickass.KickAssembler zaxxon02.asm -o bin\\zaxxon02.bin -debugdump -symbolfile -bytedump -binfile"
-            },
-            "dependsOn": [
-                "Assemble bin01"
-            ]
-        },
-        {
             "label": "Assemble all",
             "type": "shell",
             "windows": {
                 "command": "java -cp C:\\C64\\tools\\kickassembler\\KickAss.jar kickass.KickAssembler zaxxon03.asm -o bin\\zaxxon03.bin -debugdump -symbolfile -bytedump -binfile"
             },
             "dependsOn": [
-                "Assemble bin02"
+                "Assemble bin01"
             ]
         },
         {
             "label": "Merge binfiles",
             "type": "shell",
             "windows": {
-                "command": "\"C: copy /b z1.bin + /b z2.bin + /b z3.bin = zaxxon.bin"
+                "command": "\"C: copy /b z1.bin + /b z3.bin = zaxxon.bin"
             },
             "dependsOn": [
                 "Assemble all"
