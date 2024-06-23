@@ -28,7 +28,7 @@
             "label": "Merge binfiles",
             "type": "shell",
             "windows": {
-                "command": "\"C: copy /b z1.bin + /b z3.bin = zaxxon.bin"
+                "command": "\"C: copy /b zaxxon01.bin + /b zaxxon03.bin = zaxxon.bin"
             },
             "dependsOn": [
                 "Assemble all"
