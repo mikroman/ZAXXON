@@ -1,1 +1,0 @@
-copy /b z1.bin + /b z2.bin + /b z3.bin=zaxxon.bin
