@@ -4949,7 +4949,6 @@ L_JSR_9F25_9565:
 
 	lda $06
 	asl
-.break
 	adc $A000                         // Restart Vectors
 	sta $07
 	lda #$00
@@ -5412,7 +5411,6 @@ L_BRS_A224_A262:
 L_BRS_A224_A267:
 L_BRS_A224_A26C:
 
-.break
 	rts
 
 L_BRS_A225_A1E5:

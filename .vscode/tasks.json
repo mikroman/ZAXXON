@@ -11,37 +11,37 @@
             "label": "Build bin01",
             "type": "shell",
             "windows": {
-                "command": "java -cp C:\\C64\\tools\\kickassembler\\KickAss.jar kickass.KickAssembler zaxxon01-8_9_AB.asm -o bin\\zaxxon01.bin -debugdump -symbolfile -bytedump -binfile"
+                "command": "java -cp C:\\C64\\tools\\kickassembler\\KickAss.jar kickass.KickAssembler zaxxon8_9_AB.asm -o bin\\zaxxon01.bin -debugdump -symbolfile -bytedump -binfile"
             }
         },
         {
             "label": "Build bin02",
             "type": "shell",
             "windows": {
-                "command": "java -cp C:\\C64\\tools\\kickassembler\\KickAss.jar kickass.KickAssembler zaxxon02-AB.asm -o bin\\zaxxon02.bin -debugdump -symbolfile -bytedump -binfile"
+                "command": "java -cp C:\\C64\\tools\\kickassembler\\KickAss.jar kickass.KickAssembler zaxxonAB.asm -o bin\\zaxxon02.bin -debugdump -symbolfile -bytedump -binfile"
             },
             "dependsOn": [
                 "Build bin01"
             ]
         },
         {
-            "label": "Build crt from bins",
+            "label": "Build crt from binfiles",
             "type": "shell",
             "windows": {
-                "command": "java -cp C:\\C64\\tools\\kickassembler\\KickAss.jar kickass.KickAssembler buildzaxcart.asm -o bin\\zaxxon.crt -debugdump -symbolfile -bytedump -binfile"
+                "command": "java -cp C:\\C64\\tools\\kickassembler\\KickAss.jar kickass.KickAssembler build_zaxxon_cart.asm -o bin\\zaxxon.crt -bytedump -binfile"
             },
             "dependsOn": [
                 "Build bin02"
             ]
         },
         {
-            "label": "Build & Launch C64debugger",
+            "label": "C64debugger Build & Launch",
             "type": "shell",
             "windows": {
                 "command": "\"C:\\Users\\Mike\\Desktop\\C64Debug\\C64Debugger-v0.64.58.6\\C64Debugger.exe\" -cartcrt ${fileDirname}\\bin\\zaxxon.crt -debuginfo ${fileDirname}\\bin\\zaxxon01.dbg -jmp $fce2 -layout 11"
             },
             "dependsOn": [
-                "Build crt from bins"
+                "Build crt from binfiles"
             ],
             "problemMatcher": [],
             "group": {
@@ -50,7 +50,7 @@
             }
         },
         {
-            "label": "Build & Launch VICE",
+            "label": "VICE Build & Launch",
             "type": "shell",
             "windows": {
                 "command": "\"C:\\C64\\tools\\GTK3VICE-3.7-win64\\bin\\x64sc.exe\" -cartcrt ${fileDirname}\\bin\\zaxxon.crt"
