@@ -1,18 +1,15 @@
-#import "8000mirror.asm"
-
-* = $8000
+* = $8000 "8000 cartridge slot"
 	.word coldstart
 	.word warmstart
-//	.byte $0D,$80
-//	.byte $29,$80
-	.byte $C3,$C2,$CD,$38,$30
+	.byte $C3,$C2,$CD,$38,$30	// crt signature bytes
 
-L_JMP_8009_800A:	// BRK jumps here
+
+L_JMP_8009_800A:	// BRK routine
 
 	sei
 	jmp L_JMP_8009_800A
 
-coldstart:
+coldstart:	// cold start area
 
 	sei
 	lda #$00
@@ -30,7 +27,7 @@ L_BRS_8020_8024:
 	bpl L_BRS_8020_8024
 	jsr L_JSR_81BA_8026
 
-warmstart:
+warmstart:	// warm start area
 
 	sei
 	cld
@@ -787,8 +784,11 @@ L_BRS_84D4_84E5:
 	sta $06
 	lda #$58
 	sta $05
-	jsr $9F25
-	jsr $9F25
+	jsr L_JSR_9F25_84F9
+	jsr L_JSR_9F25_84FC
+//	jsr $9F25
+//	jsr $9F25
+
 	ldx #$C0
 
 L_JMP_8501_850F:
@@ -811,8 +811,10 @@ L_BRS_8512_850A:
 	sta $04
 	lda #$59
 	sta $05
-	jsr $9F25
-	jsr $9F25
+	jsr L_JSR_9F25_851A
+	jsr L_JSR_9F25_851D
+//	jsr $9F25
+//	jsr $9F25
 	lda #$12
 	sta $07
 
@@ -871,7 +873,7 @@ L_BRS_855B_8557:
 
 L_BRS_8565_856A:
 
-	jsr $9F25
+	jsr L_JSR_9F25_8565
 	dec $0D
 	bne L_BRS_8565_856A
 	lda #$00
@@ -945,7 +947,7 @@ L_JSR_85B7_8CE6:
 	sta $06
 	lda #$00
 	sta $13
-	jsr $9ED7
+	jsr L_JSR_9ED7_85D6
 	lda $341D
 	and #$03
 	sta $341B
@@ -955,19 +957,19 @@ L_JSR_85B7_8CE6:
 	cmp #$02
 	beq L_BRS_85F9_85E9
 	lda #$FC
-	jsr $9EF8
+	jsr L_JSR_9EF8_85ED
 	jsr L_JSR_8D49_85F0
 	jmp L_JMP_8602_85F3
 
 L_BRS_85F6_85E1:
 
-	jsr $9ED1
+	jsr L_JSR_9ED1_85F6
 
 L_BRS_85F9_85E9:
 
 	lda $06
 	beq L_BRS_8600_85FB
-	jsr $9EF8
+	jsr L_JSR_9EF8_85FD
 
 L_BRS_8600_85FB:
 
@@ -995,7 +997,7 @@ L_BRS_8611_85E5:
 	sta $341C
 	jsr L_JSR_8ECB_8622
 	lda #$28
-	jsr $9EF8
+	jsr L_JSR_9EF8_8627
 	dec $13
 
 L_JMP_862C_860E:
@@ -1261,7 +1263,7 @@ L_JMP_87CF_87A3:
 	rti
 
 L_JSR_87D5_86F3:
-L_JSR_87D5_8F09:
+L_JSR_87D5_9F09:
 
 	jsr L_JSR_8804_87D5
 	bne L_BRS_87E0_87D8
@@ -1279,11 +1281,11 @@ L_JMP_87E3_87DD:
 	rts
 
 L_JSR_87EA_86ED:
-L_JSR_87EA_8F03:
+L_JSR_87EA_9F03:
 
 	jsr L_JSR_8804_87EA
 	bne L_BRS_87F5_87ED
-	jsr $0806
+	jsr $0806			// ##### non-local routine
 	jmp L_JMP_87F8_87F2
 
 L_BRS_87F5_87ED:
@@ -1300,7 +1302,7 @@ L_JMP_87F8_87F2:
 
 L_JSR_8804_87D5:
 L_JSR_8804_87EA:
-L_JSR_8804_8F0F:
+L_JSR_8804_9F0F:
 
 	inc $226C
 	lda $2268
@@ -1408,6 +1410,9 @@ L_BRS_88A8_887B:
 	sta $D012                          // Raster Position
 	inc $D7
 	rts
+
+
+
 	.byte $01,$02,$04,$08,$10,$20,$40,$80
 	.byte $FE,$FD,$FB,$F7,$EF,$DF,$BF,$7F
 
@@ -1614,7 +1619,7 @@ L_BRS_89B4_899C:
 	rts
 
 L_JSR_89C8_8800:
-L_JSR_89C8_8F17:
+L_JSR_89C8_9F17:
 
 	lda $12
 	and #$10
@@ -1630,13 +1635,13 @@ L_JSR_89C8_8F17:
 
 L_BRS_89DC_89FE:
 
-	jsr $9DF9
+	jsr L_JSR_9DF9_89DC
 	ldy $19
 	jsr L_JSR_81F1_89E1
 	ldy $19
 	sta $3010,Y
 	inc $19
-	jsr $9DF9
+	jsr L_JSR_9DF9_89EB
 	ldy $19
 	jsr L_JSR_81F1_89F0
 	ldy $19
@@ -1650,7 +1655,7 @@ L_BRS_89DC_89FE:
 
 L_JSR_8A03_87E6:
 L_JMP_8A03_8A00:
-L_JSR_8A03_8F1D:
+L_JSR_8A03_9F1D:
 
 	lda $12
 	and #$10
@@ -1668,7 +1673,7 @@ L_JSR_8A03_8F1D:
 
 L_JMP_8A1B_8A45:
 
-	jsr $9DF9
+	jsr L_JSR_9DF9_8A1B
 	ldy #$00
 	jsr L_JSR_81F1_8A20
 	ldy #$00
@@ -2205,32 +2210,29 @@ L_BRS_8D57_8DA9:
 
 // $8DD5
 	.byte $70,$70,$6E,$86,$8E,$70
-// $8DDB	
+// $8DDB
 	.byte $4F,$40,$55,$57,$60,$6A
-// $8DE1	
+// $8DE1
 	.byte $8F,$85,$86,$87,$88,$89
-// $8DE7	
+// $8DE7
 	.byte $1B,$2A,$15,$13,$0A,$00
-// $8DED	
+// $8DED
 	.byte $08,$18,$18,$10,$10,$16
-// $8DF3	
+// $8DF3
 	.byte $08,$15,$15,$13,$0A,$04
-//	.byte $70,$70,$6E,$86,$8E,$70,$4F,$40
-//	.byte $55,$57,$60,$6A,$8F,$85,$86,$87
-//	.byte $88,$89,$1B,$2A,$15,$13,$0A,$00
-//	.byte $08,$18,$18,$10,$10,$16,$08,$15
-//	.byte $15,$13,$0A,$04,$AD,$1D,$34,$29
-//	.byte $03,$C9,$01,$D0,$03,$4C,$05,$8E 
-// the next five lines are, possibly, not used
+
+L_JSR_8DF9_89DC:
+L_JSR_8DF9_89EB:
+L_JSR_8DF9_8A1B:
 
 	lda $341D
 	and #$03
 	cmp #$01
 	bne L_BRS_8E05_8E00
-	jmp L_JMP_8E05_8E02
+	jmp L_JMP_8E05_9E02
 
 L_BRS_8E05_8E00:
-L_JMP_8E05_8E02:
+L_JMP_8E05_9E02:
 
 	lda $2268
 	beq L_BRS_8E0D_8E08
@@ -2440,29 +2442,29 @@ L_BRS_8EFA_8F22:
 	bcs L_BRS_8F0F_8EFE
 	ror
 	bcs L_BRS_8F09_8F01
-	jsr L_JSR_87EA_8F03
+	jsr L_JSR_87EA_9F03
 	clc
 	bcc L_BRS_8F20_8F07
 
 L_BRS_8F09_8F01:
 
-	jsr L_JSR_87D5_8F09
+	jsr L_JSR_87D5_9F09
 	clc
 	bcc L_BRS_8F20_8F0D
 
 L_BRS_8F0F_8EFE:
 
-	jsr L_JSR_8804_8F0F
+	jsr L_JSR_8804_9F0F
 	lda $06
 	ror
 	bcs L_BRS_8F1D_8F15
-	jsr L_JSR_89C8_8F17
+	jsr L_JSR_89C8_9F17
 	clc
 	bcc L_BRS_8F20_8F1B
 
 L_BRS_8F1D_8F15:
 
-	jsr L_JSR_8A03_8F1D
+	jsr L_JSR_8A03_9F1D
 
 L_BRS_8F20_8F07:
 L_BRS_8F20_8F0D:
@@ -2535,6 +2537,359 @@ L_BRS_8F6E_8F6A:
 	inc $05
 
 L_BRS_8F80_8F7C:
+
+	rts
+
+
+	.byte $02,$6F,$70,$50,$3D,$46,$1F,$F5
+	.byte $02,$83,$84,$83,$74,$75,$82,$6F
+	.byte $70,$4A,$00,$DD,$C7,$44,$00,$02
+	.byte $83,$84,$83,$74,$75,$01,$F0,$44
+	.byte $00,$01,$21,$4A,$00,$82,$21,$22
+	.byte $46,$00,$02,$83,$84,$83,$74,$75
+	.byte $01,$F0,$5B,$00,$03,$83,$84,$74
+	.byte $E8,$4C,$00,$82,$21,$00,$4D,$00
+	.byte $05,$83,$84,$74,$75,$74,$E8,$48
+	.byte $00,$01,$3E,$44,$00,$83,$21,$22
+	.byte $48,$00,$02,$83,$84,$82,$74,$75
+	.byte $01,$74,$E8,$4C,$00,$01,$CE,$48
+	.byte $00,$84,$26,$27,$02,$00,$00,$82
+	.byte $83,$84,$44,$00,$82,$83,$84,$4C
+	.byte $00,$44,$1F,$01,$74,$E8,$02,$28
+	.byte $81,$CC,$01,$75,$F1,$02,$71
+
+* = $9DF9 "mirror of 8000 ROM at 9DF9" virtual
+
+L_JSR_9DF9_89DC:
+L_JSR_9DF9_89EB:
+L_JSR_9DF9_8A1B:
+
+	lda $341D
+	and #$03
+	cmp #$01
+	bne L_BRS_9E05_9E00
+	jmp L_JMP_8E05_9E02
+
+L_BRS_9E05_9E00:
+
+	lda $2268
+	beq L_BRS_9E0D_9E08
+	lda #$1F
+	rts
+
+L_BRS_9E0D_9E08:
+
+	lda $87,X
+	ora $88,X
+	beq L_BRS_9E6A_9E11
+	lda $51,X
+	ora $52,X
+	beq L_BRS_9E46_9E17
+
+L_BRS_9E19_9E91:
+
+	lda ($51,X)
+	inc $51,X
+	bne L_BRS_9E21_9E1D
+	inc $52,X
+
+L_BRS_9E21_9E1D:
+
+	dec $88,X
+	beq L_BRS_9E26_9E23
+
+L_BRS_9E25_9E28:
+
+	rts
+
+L_BRS_9E26_9E23:
+
+	ldy $87,X
+	beq L_BRS_9E25_9E28
+	dec $87,X
+	bne L_BRS_9E37_9E2C
+	ldy $51,X
+	sty $1B,X
+	ldy $52,X
+	sty $1C,X
+	rts
+
+L_BRS_9E37_9E2C:
+
+	pha
+	lda $1B,X
+	sta $51,X
+	lda $1C,X
+	sta $52,X
+	lda #$02
+	sta $88,X
+	pla
+	rts
+
+L_BRS_9E46_9E17:
+L_BRS_9E46_9EC1:
+
+	lda ($1B,X)
+	ldy $88,X
+	beq L_BRS_9E55_9E4A
+	inc $1B,X
+	bne L_BRS_9E52_9E4E
+	inc $1C,X
+
+L_BRS_9E52_9E4E:
+
+	dec $88,X
+	rts
+
+L_BRS_9E55_9E4A:
+
+	dec $87,X
+	bne L_BRS_9E5F_9E57
+	inc $1B,X
+	bne L_BRS_9E5F_9E5B
+	inc $1C,X
+
+L_BRS_9E5F_9E57:
+L_BRS_9E5F_9E5B:
+
+	rts
+
+L_BRS_9E60_9E6C:
+
+	lda $BE9E,X
+	sta $1B,X
+	lda $BE9F,X
+	sta $1C,X
+
+L_BRS_9E6A_9E11:
+
+	lda ($1B,X)
+	beq L_BRS_9E60_9E6C
+	asl
+	bcc L_BRS_9EAD_9E6F
+	bpl L_BRS_9E93_9E71
+	and #$7E
+	tay
+	lda $A59B,Y
+	sta $51,X
+	lda $A59C,Y
+	sta $52,X
+	lda ($51,X)
+	sta $88,X
+	inc $51,X
+	bne L_BRS_9E8A_9E86
+	inc $52,X
+
+L_BRS_9E8A_9E86:
+
+	inc $1B,X
+	bne L_BRS_9E90_9E8C
+	inc $1C,X
+
+L_BRS_9E90_9E8C:
+L_BRS_9E90_9EAB:
+
+	clc
+	bcc L_BRS_9E19_9E91
+
+L_BRS_9E93_9E71:
+
+	lsr
+	and #$3F
+	sta $87,X
+	inc $1B,X
+	bne L_BRS_9E9E_9E9A
+	inc $1C,X
+
+L_BRS_9E9E_9E9A:
+
+	lda #$02
+	sta $88,X
+	lda $1B,X
+	sta $51,X
+	lda $1C,X
+	sta $52,X
+	clc
+	bcc L_BRS_9E90_9EAB
+
+L_BRS_9EAD_9E6F:
+
+	bpl L_BRS_9EC3_9EAD
+	lsr
+	and #$3F
+	sta $87,X
+
+L_BRS_9EB4_9EC9:
+
+	inc $1B,X
+	bne L_BRS_9EBA_9EB6
+	inc $1C,X
+
+L_BRS_9EBA_9EB6:
+
+	lda #$00
+	sta $51,X
+	sta $52,X
+	clc
+	bcc L_BRS_9E46_9EC1
+
+L_BRS_9EC3_9EAD:
+
+	lsr
+	and #$3F
+	sta $88,X
+	clc
+	bcc L_BRS_9EB4_9EC9
+	lda #$9E
+	ldy #$BE
+	bne L_BRS_9EDB_9ECF
+
+L_JSR_9ED1_85F6:
+
+	lda #$2F
+	ldy #$A5
+	bne L_BRS_9EDB_9ED5
+
+L_JSR_9ED7_85D6:
+
+	lda #$65
+	ldy #$A5
+
+L_BRS_9EDB_9ECF:
+L_BRS_9EDB_9ED5:
+
+	sta $03
+	sty $04
+	ldy #$36
+
+L_BRS_9EE1_9EEC:
+
+	lda ($03),Y
+	sta $001B,Y
+	lda #$00
+	sta $0087,Y
+	dey
+	bpl L_BRS_9EE1_9EEC
+	sta $341C
+	sta $2268
+	sta $342F
+	rts
+
+L_JSR_9EF8_85ED:
+L_JSR_9EF8_85FD:
+L_JSR_9EF8_8627:
+
+	sta $06
+
+L_BRS_9EFA_9F22:
+
+	lda $06
+	cmp #$28
+	bcs L_BRS_9F0F_9EFE
+	ror
+	bcs L_BRS_9F09_9F01
+	jsr L_JSR_87EA_9F03
+	clc
+	bcc L_BRS_9F20_9F07
+
+L_BRS_9F09_9F01:
+
+	jsr L_JSR_87D5_9F09
+	clc
+	bcc L_BRS_9F20_9F0D
+
+L_BRS_9F0F_9EFE:
+
+	jsr L_JSR_8804_9F0F
+	lda $06
+	ror
+	bcs L_BRS_9F1D_9F15
+	jsr L_JSR_89C8_9F17
+	clc
+	bcc L_BRS_9F20_9F1B
+
+L_BRS_9F1D_9F15:
+
+	jsr L_JSR_8A03_9F1D
+
+L_BRS_9F20_9F07:
+L_BRS_9F20_9F0D:
+L_BRS_9F20_9F1B:
+
+	dec $06
+	bne L_BRS_9EFA_9F22
+	rts
+
+L_JSR_9F25_84F9:
+L_JSR_9F25_84FC:
+L_JSR_9F25_851A:
+L_JSR_9F25_851D:
+L_JSR_9F25_8565:
+
+	lda $06
+	asl
+	adc $A000                          // Restart Vectors
+	sta $07
+	lda #$00
+	adc $A001
+	sta $08
+	ldy #$00
+	lda ($07),Y
+	sta $09
+	sta $0C
+	iny
+	lda ($07),Y
+	sta $08
+	dey
+	inc $06
+	lda #$15
+	sta $0B
+
+L_BRS_9F48_9F74:
+
+	lda $08
+	sta $07
+	lda #$03
+	sta $0A
+	dec $09
+
+L_BRS_9F52_9F70:
+
+	lda #$00
+	ldx $09
+	bpl L_BRS_9F5A_9F56
+	sta $07
+
+L_BRS_9F5A_9F56:
+
+	dec $07
+	bmi L_BRS_9F66_9F5C
+	lda ($02),Y
+	inc $02
+	bne L_BRS_9F66_9F62
+	inc $03
+
+L_BRS_9F66_9F5C:
+L_BRS_9F66_9F62:
+
+	sta ($04),Y
+	inc $04
+	bne L_BRS_9F6E_9F6A
+	inc $05
+
+L_BRS_9F6E_9F6A:
+
+	dec $0A
+	bne L_BRS_9F52_9F70
+	dec $0B
+	bne L_BRS_9F48_9F74
+	lda $0C
+	sta ($04),Y
+	inc $04
+	bne L_BRS_9F80_9F7C
+	inc $05
+
+L_BRS_9F80_9F7C:
 
 	rts
 
