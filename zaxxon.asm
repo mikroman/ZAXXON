@@ -1,4 +1,5 @@
 // disassembly of the ZAXXON.CRT for Commodore64. By Mike Loewen (mikroman)
+#import "zaxxon_labels.asm"
 
 * = $8000 "8000 cartridge slot"
 	.word coldstart
@@ -16,8 +17,8 @@ coldstart:	// cold start area
 	sei
 	lda #$00
 	sta $D016                          // Control Register 2
-	jsr $FDA3                         // Initialise I/O
-	jsr $FD15                         // Restore Kernal Vectors
+	jsr KER_IOINIT		// Initialise I/O
+	jsr RESTOR		// Restore Kernal Vectors
 	ldx #$0B
 	lda #$00
 	sta $3427

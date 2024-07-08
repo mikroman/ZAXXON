@@ -1,0 +1,43 @@
+// ##########################################################################
+// KERNAL JMP table. Sorted by address
+.label CINT	= $FF81             //  FF5B  65409   Initialize the screen editor and VIC-II Chip
+.label IOINIT	= $FF84             //  FDA3  65412   Initialize I/O devices
+.label KER_IOINIT   = $FDA3             //  
+.label RAMTAS	= $FF87             //  FD50  65415   Perform RAM test
+.label RESTOR	= $FD15             //  FD15  65418   (non-KERNAL JMP table route)
+.label VECTOR	= $FF8D             //  FD1A  65421   Manage RAM vectors
+.label SETMSG	= $FF90             //  FE18  65424   Set system message output
+.label SECOND	= $FF93             //  EDB9  65427   Send secondary address for LISTEN
+.label TKSA	= $FF96             //  EDC7  65430   Send a secondary address to a device commanded to talk
+.label MEMTOP	= $FF99             //  FE25  65433   Set the top of RAM
+.label MEMBOT	= $FF9C             //  FE34  65436   Set bottom of memory
+.label SCNKEY	= $FF9F             //  EA87  65439   Scan the keyboard
+.label SETTMO	= $FFA2             //  FE21  65442   Set IEEE bus card timeout flag
+.label ACPTR	= $FFA5             //  EE13  65445   Input byte from serial port
+.label CIOUT	= $FFA8             //  EDDD  65448   Transmit a byte over the serial bus
+.label UNTLK	= $FFAB             //  EDEF  65451   Send an UNTALK command
+.label UNLSN	= $FFAE             //  EDFE  65454   Send an UNLISTEN command
+.label LISTEN	= $FFB1             //  ED0C  65457   Command a device on the serial bus to listen
+.label TALK	= $FFB4             //  ED09  65460   Command a device on the serial bus to talk
+.label READST	= $FFB7             //  FE07  65463   Read status word
+.label SETLFS	= $FFBA             //  FE00  65466   Set up a logical file
+.label SETNAM	= $FFBD             //  FDF9  65469   Set up file name
+.label OPEN	= $FFC0             // (013A) 65472   Open a logical file
+.label CLOSE	= $FFC3             // (031C) 65475   Close a logical file
+.label CHKIN	= $FFC6             // (031E) 65478   Open channel for input
+.label CHKOUT	= $FFC9             // (0320) 65481   Open a channel for output
+.label CLRCHN	= $FFCC             // (0322) 65484   Clear all I/O channels
+.label CHRIN	= $FFCF             // (0324) 65487   Get a character from the input channel
+.label CHROUT	= $FFD2             // (0326) 65490   Output a character
+.label LOAD	= $FFD5             // F49E 65493   Load RAM from device
+.label SAVE	= $FFD8             // F5DD 65496   Save memory to a device
+.label SETTIM	= $FFDB             // F6E4 65499   Set the system clock
+.label RDTIM	= $FFDE             // F6DD 65502   Read system clock
+.label STOP	= $FFE1             // (0328) 65505   Check if STOP key is pressed
+.label GETIN	= $FFE4             // (032A) 65508   Get a character
+.label CLALL	= $FFE7             // (032C) 65511   Close all open files
+.label UDTIM	= $FFEA             // F69B 65514   Update the system clock
+.label SCREEN	= $FFED             // E505 65517   Return screen format
+.label PLOT	= $FFF0             // E50A 65520   Set or retrieve cursor location
+.label IOBASE	= $FFF3             // E500 65523   Define I/O memory page
+// ##########################################################################
