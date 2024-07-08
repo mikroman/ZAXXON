@@ -11,14 +11,14 @@
             "label": "Build bin01",
             "type": "shell",
             "windows": {
-                "command": "java -cp C:\\C64\\tools\\kickassembler\\KickAss.jar kickass.KickAssembler zaxxon8_9_AB.asm -o bin\\zaxxon01.bin -debugdump -symbolfile -bytedump -binfile"
+                "command": "java -cp C:\\C64\\tools\\kickassembler\\KickAss.jar kickass.KickAssembler zaxxon.asm -o bin\\zaxxon01.bin -debugdump -symbolfile -bytedump -binfile"
             }
         },
         {
             "label": "Build bin02",
             "type": "shell",
             "windows": {
-                "command": "java -cp C:\\C64\\tools\\kickassembler\\KickAss.jar kickass.KickAssembler zaxxonAB.asm -o bin\\zaxxon02.bin -debugdump -symbolfile -bytedump -binfile"
+                "command": "java -cp C:\\C64\\tools\\kickassembler\\KickAss.jar kickass.KickAssembler AlternateROM.asm -o bin\\zaxxon02.bin -debugdump -symbolfile -bytedump -binfile"
             },
             "dependsOn": [
                 "Build bin01"
