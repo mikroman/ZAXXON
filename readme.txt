@@ -1,4 +1,4 @@
-This repo contains the disassembly of the, Commodore64 version, Zaxxon game cartridge in KickAss format.
+This repo contains the UNCOMMENTED disassembly of the, Commodore64 version, Zaxxon game cartridge in KickAss format.
 
 The .crt uses two banks and four CHIP sections. I have the file in four disassemblies; three are together as one file with three memory blocks, the fourth being data. The assembly files are first built with Kick Assembler into binfiles. The build will then assemble these sections, adding the CHIP headers as needed, into one 20KB binfile with a crt extension. This can then be launched by VICE or c64debugger.
 
